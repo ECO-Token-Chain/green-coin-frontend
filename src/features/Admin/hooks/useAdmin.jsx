@@ -1,0 +1,76 @@
+import { useQueries } from "@tanstack/react-query";
+import { getAllDustbins, getAllStudents, getOverallWeeklyAnalytics, getTotalWeastDeposited, leaderboard } from "../services/admin.service";
+
+
+const FIVE_MIN = 1000 * 60 * 5;
+
+const useAdmin = () => {
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ["dustbins"],
+        queryFn: getAllDustbins,
+        staleTime: FIVE_MIN,
+        retry: 1,
+      },
+      {
+        queryKey: ["totalWaste"],
+        queryFn: getTotalWeastDeposited,
+        staleTime: FIVE_MIN,
+        retry: 1,
+      },
+      {
+        queryKey: ["students"],
+        queryFn: getAllStudents,
+        staleTime: FIVE_MIN,
+        retry: 1,
+      },
+      {
+        queryKey: ["weeklyAnalytics"],
+        queryFn: getOverallWeeklyAnalytics,
+        staleTime: FIVE_MIN,
+        retry: 1,
+      },
+      {
+        queryKey: ["leaderboard"],
+        queryFn: leaderboard,
+        staleTime: FIVE_MIN,
+        retry: 1,
+      }
+    ],
+  });
+
+  const [
+    dustbinsQuery,
+    totalWasteQuery,
+    studentsQuery,
+    weeklyAnalyticsQuery,
+    leaderboardQuery
+  ] = results;
+
+  return {
+    //  Data
+    dustbins: dustbinsQuery.data?.dustbins,
+    totalWaste: totalWasteQuery.data,
+    students: studentsQuery.data?.students,
+    weeklyAnalytics: weeklyAnalyticsQuery.data?.data,
+    leaderboard: leaderboardQuery.data?.leaderboard,
+
+    //  Loading state (if ANY query is loading)
+    isLoading: results.some((q) => q.isLoading),
+
+    // Error handling
+    isError: results.some((q) => q.isError),
+    error: results.find((q) => q.error)?.error,
+
+    // Optional: individual query states (useful for advanced UI)
+    queries: {
+      dustbins: dustbinsQuery,
+      totalWaste: totalWasteQuery,
+      students: studentsQuery,
+      weeklyAnalytics: weeklyAnalyticsQuery,
+    },
+  };
+};
+
+export default useAdmin;
