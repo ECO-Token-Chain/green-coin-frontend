@@ -10,7 +10,7 @@ function UserManagement() {
 
   if (isLoading) return <div>Loading...</div>
 
-  // 🔥 filter logic
+  //  filter logic
   const filteredStudents = (students || []).filter((user) => {
     const query = search.toLowerCase()
 
@@ -26,7 +26,6 @@ function UserManagement() {
       <h2>Users</h2>
       <p className='subtitle'>{filteredStudents.length} Registered Users</p>
 
-      {/* 🔥 Search Bar */}
       <div className='search-box'>
         <input
           className='input'
@@ -74,17 +73,17 @@ function UserManagement() {
                 <td>{user.points}</td>
 
                 <td className='actions-cell'>
-                  <UserActions 
-                    userId={user._id} 
-                    currentRole={user.role} 
-                    currentUID={user.uid} 
+                  <UserActions
+                    userId={user._id}
+                    currentRole={user.role}
+                    currentUID={user.uid}
                   />
                 </td>
 
               </tr>
             ))}
 
-            {/* 🔥 No results case */}
+
             {filteredStudents.length === 0 && (
               <tr>
                 <td colSpan="6" className='no-data'>
