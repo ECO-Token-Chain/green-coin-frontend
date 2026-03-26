@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import FormGroup from "../components/FormGroup";
 import "../style/auth.styles.scss";
 import Brand from "../components/Brand";
+import useAuth from "../hooks/useAuth";
 
 
 function Register() {
   const navigate = useNavigate();
+  const { loading , handleRegister } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,7 +28,8 @@ function Register() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    
+    handleRegister(formData.name, formData.email, formData.password, formData.rollNo);
+    navigate("/");
   };
 
   return (
@@ -49,8 +52,8 @@ function Register() {
           {/* Password */}
           <FormGroup label="Password" id="password" name="password" type="password" placeholder="Enter password" value={formData.password} onChange={handleChange} autoComplete="new-password"/>
 
-          <button type="submit" className="btn btn--primary button-primary">
-            Register
+          <button disabled={loading} type="submit" className="btn btn--primary button-primary">
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
 

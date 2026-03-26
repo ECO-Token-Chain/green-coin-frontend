@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import FormGroup from "../components/FormGroup";
 import "../style/auth.styles.scss";
 import Brand from "../components/Brand";
+import useAuth from "../hooks/useAuth";
 
 function Login() {
   const navigate = useNavigate();
+  const { handleLogin , loading } = useAuth();
   const [formData, setFormData] = useState({
     identifier: "",
     password: "",
@@ -23,6 +25,8 @@ function Login() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    handleLogin(formData.identifier, formData.password);
+    navigate("/");
   };
 
   return (
@@ -38,8 +42,8 @@ function Login() {
           {/* Password */}
           <FormGroup label="Password" id="password" name="password" type="password" placeholder="Enter password" value={formData.password} onChange={handleChange} autoComplete="current-password"/>
 
-          <button type="submit" className="btn btn--primary button-primary">
-            Login
+          <button disabled={loading} type="submit" className="btn btn--primary button-primary">
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
