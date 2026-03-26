@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useCreateDustbin from '../hooks/useCreateDustbin';
+import { Plus, Loader2 } from 'lucide-react';
 
 function CreateBinForm() {
   const { loading, handleCreateDustbin } = useCreateDustbin();
@@ -18,37 +19,60 @@ function CreateBinForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     handleCreateDustbin(form.name, Number(form.capacity));
+    setForm({ name: "", capacity: "" }); // Reset form
   }
 
   return (
     <div className='create-bin'>
-      <h3>Create Dustbin</h3>
+      <div className="form-header">
+        <h3>Add New Bin</h3>
+        <p>Register a new smart dustbin to the network</p>
+      </div>
 
       <form onSubmit={handleSubmit}>
-        <input
-          className='input'
-          type="text"
-          name="name"
-          placeholder="Bin Name"
-          value={form.name}
-          onChange={handleChange}
-        />
+        <div className="input-group">
+          <label htmlFor="name">Location / Bin Name</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="e.g., Campus South Gate"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <input
-          className='input'
-          type="number"
-          name="capacity"
-          placeholder="Capacity"
-          value={form.capacity}
-          onChange={handleChange}
-        />
+        <div className="input-group">
+          <label htmlFor="capacity">Capacity Container (kg)</label>
+          <input
+            id="capacity"
+            type="number"
+            name="capacity"
+            placeholder="e.g., 50"
+            value={form.capacity}
+            onChange={handleChange}
+            required
+            min="1"
+          />
+        </div>
 
-        <button disabled={loading} className='btn btn--primary' type="submit">
-          {loading ? "Creating..." : "Create Bin"}
+        <button disabled={loading} className='submit-btn' type="submit">
+          {loading ? (
+            <>
+              <Loader2 size={18} className="spinner" />
+              Creating...
+            </>
+          ) : (
+            <>
+              <Plus size={18} />
+              Register Bin
+            </>
+          )}
         </button>
       </form>
     </div>
   )
 }
 
-export default CreateBinForm
+export default CreateBinForm
