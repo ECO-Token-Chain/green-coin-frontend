@@ -24,12 +24,12 @@ function useUserModification(id) {
   const [actionError, setActionError] = useState(null);
 
 
-  const updateUID = async () => {
+  const updateUID = async (uid) => {
     try {
       setIsUpdatingUID(true);
       setActionError(null);
 
-      const data = await updateStudentUID(id);
+      const data = await updateStudentUID(id, uid);
       await refetch();
 
       return data;

@@ -25,8 +25,8 @@ export async function getStudentById(id){
     return res.data;
 }
 
-export async function updateStudentUID(id){
-    const res = await api.patch(`/admin/students/${id}/uid`);
+export async function updateStudentUID(id, uid){
+    const res = await api.patch(`/admin/students/${id}/uid`, { uid });
     return res.data;
 }
 export async function deleteStudent(id){

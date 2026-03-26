@@ -55,12 +55,32 @@ export const ModalProvider = ({ children }) => {
     });
   }, []);
 
+  const showPrompt = useCallback((title, message, defaultValue = "") => {
+    return new Promise((resolve) => {
+      setModalConfig({
+        isOpen: true,
+        type: "prompt",
+        title,
+        message,
+        defaultValue,
+        onConfirm: (value) => {
+          setModalConfig((prev) => ({ ...prev, isOpen: false }));
+          resolve(value);
+        },
+        onCancel: () => {
+          setModalConfig((prev) => ({ ...prev, isOpen: false }));
+          resolve(null);
+        },
+      });
+    });
+  }, []);
+
   const closeModal = () => {
     setModalConfig((prev) => ({ ...prev, isOpen: false }));
   };
 
   return (
-    <ModalContext.Provider value={{ showAlert, showConfirm, closeModal }}>
+    <ModalContext.Provider value={{ showAlert, showConfirm, showPrompt, closeModal }}>
       {children}
       {modalConfig.isOpen && (
         <Modal

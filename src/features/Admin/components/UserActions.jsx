@@ -2,16 +2,34 @@ import { useQueryClient } from "@tanstack/react-query";
 import useUserModification from "../hooks/useUserModification";
 import { useModal } from "../../../global/context/ModalContext";
 
-const UserActions = ({ userId, currentRole }) => {
+const UserActions = ({ userId, currentRole, currentUID }) => {
   const queryClient = useQueryClient();
-  const { showAlert, showConfirm } = useModal();
+  const { showAlert, showConfirm, showPrompt } = useModal();
   const {
     promoteUser,
     removeStudent,
+    updateUID,
     isDeleting,
     isPromoting,
+    isUpdatingUID,
     actionError,
   } = useUserModification(userId);
+
+  const handleEdit = async () => {
+    const newUID = await showPrompt(
+      "Edit RFID UID",
+      "Please enter the new UID for the RFID card:",
+      currentUID || ""
+    );
+
+    if (newUID !== null && newUID.trim() !== "") {
+      const res = await updateUID(newUID.trim());
+      if (res) {
+        await showAlert("Success", "RFID UID updated successfully!");
+        queryClient.invalidateQueries({ queryKey: ["students"] });
+      }
+    }
+  };
 
   const handlePromote = async () => {
     const confirmed = await showConfirm(
@@ -45,18 +63,24 @@ const UserActions = ({ userId, currentRole }) => {
 
   return (
     <div className="actions">
-      <button className="edit">Edit</button>
+      <button 
+        className="edit" 
+        onClick={handleEdit}
+        disabled={isUpdatingUID || isPromoting || isDeleting}
+      >
+        {isUpdatingUID ? "Updating..." : "Edit"}
+      </button>
       <button
         className="change"
         onClick={handlePromote}
-        disabled={isPromoting || isDeleting}
+        disabled={isPromoting || isDeleting || isUpdatingUID}
       >
         {isPromoting ? "Changing..." : "Change Role"}
       </button>
       <button
         className="delete"
         onClick={handleDelete}
-        disabled={isDeleting || isPromoting}
+        disabled={isDeleting || isPromoting || isUpdatingUID}
       >
         {isDeleting ? "Deleting..." : "Delete"}
       </button>

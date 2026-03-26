@@ -74,7 +74,11 @@ function UserManagement() {
                 <td>{user.points}</td>
 
                 <td className='actions-cell'>
-                  <UserActions userId={user._id} currentRole={user.role} />
+                  <UserActions 
+                    userId={user._id} 
+                    currentRole={user.role} 
+                    currentUID={user.uid} 
+                  />
                 </td>
 
               </tr>
