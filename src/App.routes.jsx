@@ -7,6 +7,7 @@ import DashboardAdmin from "./features/Admin/Pages/DashboardAdmin";
 import UserManagement from "./features/Admin/Pages/UserManagement";
 import LeaderBoard from "./features/Admin/Pages/LeaderBoard";
 import BinPages from "./features/Admin/Pages/BinPages";
+import Marketplace from "./features/Admin/Pages/Marketplace";
 
 export const router = createBrowserRouter([
     {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/marketplace",
-                element: <div>Marketplace</div>
+                element: <Marketplace />
             },
             {
                 path: "/settings",
