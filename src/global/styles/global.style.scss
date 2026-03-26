@@ -11,6 +11,7 @@
   --color-primary-500: #2ecc71;
   --color-primary-600: #27ae60;
   --color-primary-100: #e9f7ef;
+  --color-primary-200: #ccd6d0;
   --color-primary-glow: rgba(46, 204, 113, 0.6);
 
   /* Accent */
@@ -24,8 +25,8 @@
   --color-neutral-900: #2d3436;
 
   /* Glass */
-  --glass-bg: rgba(255, 255, 255, 0.25);
-  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-bg: rgba(255, 255, 255, 0.121);
+  --glass-border: rgba(255, 255, 255, 0.169);
   --glass-shadow: rgba(0, 0, 0, 0.1);
 
 
@@ -49,6 +50,9 @@
   --space-xl: 1.5rem;
   --space-2xl: 2rem;
   --space-3xl: 3rem;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 *{
     padding: 0;
@@ -68,4 +72,7 @@ li{
 }
 a{
     text-decoration: none;
+}
+.text-link{
+  color: var(--color-primary-500);
 }
