@@ -10,6 +10,7 @@ import BinPages from "./features/Admin/Pages/BinPages";
 import Marketplace from "./features/Admin/Pages/Marketplace";
 import UserDetails from "./features/Admin/Pages/UserDetails";
 import AdminRoute from "./global/utils/AdminRoutes";
+import DashboardUser from "./features/User/Pages/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -48,7 +49,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/users",
-                element: <div>Users Page</div>
+                element: <DashboardUser />
             },
             {
                 path: "/users/marketplace",

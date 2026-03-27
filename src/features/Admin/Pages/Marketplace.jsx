@@ -87,7 +87,7 @@ function Marketplace() {
             <div className="input-group">
               <label htmlFor="price">Price (Tokens)</label>
               <div className="price-input-wrapper">
-                <DollarSign size={18} className="icon" />
+                <span className='icon'>GC</span>
                 <input
                   id="price"
                   name="price"
