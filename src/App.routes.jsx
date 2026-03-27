@@ -13,6 +13,8 @@ import AdminRoute from "./global/utils/AdminRoutes";
 import DashboardUser from "./features/User/pages/Dashboard";
 import ProfileUser from "./features/User/pages/Profile";
 import MarketplaceUser from "./features/User/pages/Marketplace";
+import MyOrders from "./features/User/pages/MyOrders";
+import TransactionHistory from "./features/User/pages/TransactionHistory";
 
 export const router = createBrowserRouter([
     {
@@ -20,7 +22,7 @@ export const router = createBrowserRouter([
         element: <ProtectedRoute>
             <MainLayout />
         </ProtectedRoute>,
-        children:[
+        children: [
             {
                 index: true,
                 element: <AdminRoute><DashboardAdmin /></AdminRoute>
@@ -60,6 +62,14 @@ export const router = createBrowserRouter([
             {
                 path: "/users/profile",
                 element: <ProfileUser />
+            },
+            {
+                path: "/users/orders",
+                element: <MyOrders />
+            },
+            {
+                path: "/users/transactions",
+                element: <TransactionHistory />
             }
         ]
     },

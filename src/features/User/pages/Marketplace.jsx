@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import useAdmin from '../../Admin/hooks/useAdmin';
 import useUser from '../hooks/useUser';
-import '../../Admin/styles/marketplace.style.scss'; // Reuse Admin Marketplace styling
-import '../styles/marketplace.user.style.scss'; // User specific popup styling
+import useVendorPurchase from '../hooks/useVendorPurchase';
+import '../../Admin/styles/marketplace.style.scss';
+import '../styles/marketplace.user.style.scss';
 
 function Marketplace() {
   const { marketProducts, isLoading: isAdminLoading } = useAdmin();
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [successOrder, setSuccessOrder] = useState(null); // holds product info on success
   const { queries } = useUser(selectedProductId);
   
   const isProductLoading = queries.product.isLoading;
   const product = queries.product.data?.product;
-
-  if (isAdminLoading) {
-    return <div className="loading-state">Loading Marketplace...</div>;
-  }
 
   const handleProductClick = (id) => {
     setSelectedProductId(id);
@@ -22,6 +20,26 @@ function Marketplace() {
 
   const closePopup = () => {
     setSelectedProductId(null);
+  };
+
+  const closeSuccessModal = () => {
+    setSuccessOrder(null);
+  };
+
+  const purchaseMutation = useVendorPurchase(() => {
+    setSuccessOrder(product); // save product info to display in success modal
+    closePopup();
+  });
+
+  const handleBuy = async () => {
+    try {
+      purchaseMutation.mutate({
+        amount: product.price,
+        productId: product._id || product.id
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -91,13 +109,44 @@ function Marketplace() {
                 <h3>{product.name}</h3>
                 <p className="price">{product.price} GC</p>
                 <p className="description">{product.description || "A wonderful premium product to redeem with your Green Coins!"}</p>
-                <button className="btn-buy-now">BUY NOW</button>
+                <button 
+                  className="btn-buy-now" 
+                  onClick={handleBuy} 
+                  disabled={purchaseMutation.isPending}
+                >
+                  {purchaseMutation.isPending ? "Purchasing..." : "BUY NOW"}
+                </button>
               </div>
             ) : (
               <div style={{ padding: '2rem', textAlign: 'center' }}>
                 <p>Failed to load product details.</p>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ✅ CUSTOM SUCCESS MODAL */}
+      {successOrder && (
+        <div className="success-overlay" onClick={closeSuccessModal}>
+          <div className="success-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="success-icon">🎉</div>
+            <h2 className="success-title">Order Successful!</h2>
+            <p className="success-subtitle">Your purchase was completed successfully.</p>
+            <div className="success-product-info">
+              <img
+                src={successOrder.imageUrl || successOrder.image || 'https://via.placeholder.com/80?text=GC'}
+                alt={successOrder.name}
+                className="success-product-img"
+              />
+              <div>
+                <p className="success-product-name">{successOrder.name}</p>
+                <p className="success-product-price">- {successOrder.price} GC deducted</p>
+              </div>
+            </div>
+            <button className="success-close-btn" onClick={closeSuccessModal}>
+              Done
+            </button>
           </div>
         </div>
       )}

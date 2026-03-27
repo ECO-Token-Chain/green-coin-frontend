@@ -19,3 +19,13 @@ export async function getMyweeklyAnalytics(){
     const res = await api.get("/analytics/weekly/my");
     return res.data;
 }
+
+export async function getMyOrders(){
+    const res = await api.get("/user/orders");
+    return res.data;
+}
+
+export async function getMyTransactions(){
+    const res = await api.get("/user/transactions");
+    return res.data;
+}
