@@ -10,7 +10,7 @@ import BinPages from "./features/Admin/Pages/BinPages";
 import Marketplace from "./features/Admin/Pages/Marketplace";
 import UserDetails from "./features/Admin/Pages/UserDetails";
 import AdminRoute from "./global/utils/AdminRoutes";
-import DashboardUser from "./features/User/Pages/Dashboard";
+import DashboardUser from "./features/User/pages/Dashboard";
 import ProfileUser from "./features/User/pages/Profile";
 import MarketplaceUser from "./features/User/pages/Marketplace";
 
