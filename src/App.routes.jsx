@@ -12,6 +12,7 @@ import UserDetails from "./features/Admin/Pages/UserDetails";
 import AdminRoute from "./global/utils/AdminRoutes";
 import DashboardUser from "./features/User/Pages/Dashboard";
 import ProfileUser from "./features/User/pages/Profile";
+import MarketplaceUser from "./features/User/pages/Marketplace";
 
 export const router = createBrowserRouter([
     {
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/users/marketplace",
-                element: <div>User Marketplace</div>
+                element: <MarketplaceUser />
             },
             {
                 path: "/users/profile",
