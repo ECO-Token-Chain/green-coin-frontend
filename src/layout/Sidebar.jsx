@@ -52,6 +52,16 @@ const menueItemsUser = [
     icon: <TicketSlash size={20} />,
   },
   {
+    name: "My Orders",
+    path: "/users/orders",
+    icon: <FileText size={20} />,
+  },
+  {
+    name: "Transactions",
+    path: "/users/transactions",
+    icon: <History size={20} />,
+  },
+  {
     name: "Profile",
     path: "/users/profile",
     icon: <Users size={20} />,
