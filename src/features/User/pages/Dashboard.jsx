@@ -60,7 +60,7 @@ const Dashboard = () => {
                 <div className="stat-card">
                     <span className="stat-title">Today's Waste Drop</span>
                     <span className="stat-value highlight">
-                        {todayWaste >= 1000 ? (todayWaste / 1000).toFixed(2) + ' kg' : todayWaste + ' g'}
+                        {user.wasteDroppedToday >= 1000 ? (user.wasteDroppedToday / 1000).toFixed(2) + ' kg' : user.wasteDroppedToday + ' g'}
                     </span>
                 </div>
                 <div className="stat-card">
