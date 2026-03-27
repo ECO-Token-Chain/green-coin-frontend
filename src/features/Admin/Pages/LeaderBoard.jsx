@@ -3,7 +3,7 @@ import useAdmin from '../hooks/useAdmin'
 import "../styles/leaderboard.style.scss"
 
 function LeaderBoard() {
-  const { leaderboard, isLoading, students } = useAdmin()
+  const { leaderboard, isLoading } = useAdmin()
 
   if (isLoading) return <div className="loading-state">Loading leaderboard...</div>
 
@@ -25,7 +25,7 @@ function LeaderBoard() {
         </div>
         <div className="contributors-card">
           <p className="label">Eco Achivers</p>
-          <p className="count">{students.length}</p>
+          <p className="count">{leaderboard.length}</p>
         </div>
       </div>
 
