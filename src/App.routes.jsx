@@ -49,6 +49,14 @@ export const router = createBrowserRouter([
             {
                 path: "/users",
                 element: <div>Users Page</div>
+            },
+            {
+                path: "/users/marketplace",
+                element: <div>User Marketplace</div>
+            },
+            {
+                path: "/users/profile",
+                element: <div>User Profile</div>
             }
         ]
     },

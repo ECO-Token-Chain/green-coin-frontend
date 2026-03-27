@@ -33,12 +33,30 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     path: "/marketplace",
     icon: <TicketSlash size={20} />,
   },
-  {
-    name: "Settings",
-    path: "/settings",
-    icon: <Settings size={20} />,
-  },
 ];
+
+const menueItemsUser = [
+  {
+    name: "Dashboard",
+    path: "/users",
+    icon: <LayoutDashboard size={20} />,
+  },
+  {
+    name: "Leaderboard",
+    path: "/leaderboard",
+    icon: <BarChart3 size={20} />,
+  },
+  {
+    name: "Marketplace",
+    path: "/users/marketplace",
+    icon: <TicketSlash size={20} />,
+  },
+  {
+    name: "Profile",
+    path: "/users/profile",
+    icon: <Users size={20} />,
+  }
+]
 
   return (
     <aside className={`sidebar ${isOpen ? 'show' : ''}`}>
@@ -59,11 +77,31 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       <nav className="nav-menu">
         <span className="menu-label">{user?.role == "admin" ? 'ADMIN' : 'USER'}</span>
-        {menuItems.map((item, index) => (
-          <div key={index} onClick={()=> navigate(item.path)} className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}>
-            {item.icon}
-            <span>{item.name}</span>
-          </div>
+        {user.role === "admin" &&
+          menuItems.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => navigate(item.path)}
+              className={`nav-item ${
+                location.pathname === item.path ? "active" : ""
+              }`}
+            >
+              {item.icon}
+              <span>{item.name}</span>
+            </div>
+        ))}
+        {user.role === "user" &&
+          menueItemsUser.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => navigate(item.path)}
+              className={`nav-item ${
+                location.pathname === item.path ? "active" : ""
+              }`}
+            >
+              {item.icon}
+              <span>{item.name}</span>
+            </div>
         ))}
         <div className="divider" />
         {/* <div className="nav-item"><History size={20} /><span>History</span></div>

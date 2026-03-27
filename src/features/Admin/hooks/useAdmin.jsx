@@ -1,33 +1,39 @@
 import { useQueries } from "@tanstack/react-query";
 import { getAllDustbins, getAllStudents, getMarketProducts, getOverallWeeklyAnalytics, getTotalWeastDeposited, leaderboard } from "../services/admin.service";
+import useAuth from "../../Auth/hooks/useAuth";
 
 
 const FIVE_MIN = 1000 * 60 * 5;
 
 const useAdmin = () => {
+  const { user } = useAuth();
   const results = useQueries({
     queries: [
       {
         queryKey: ["dustbins"],
         queryFn: getAllDustbins,
+        enabled: user?.role === "admin", 
         staleTime: FIVE_MIN,
         retry: 1,
       },
       {
         queryKey: ["totalWaste"],
         queryFn: getTotalWeastDeposited,
+        enabled: user?.role === "admin", 
         staleTime: FIVE_MIN,
         retry: 1,
       },
       {
         queryKey: ["students"],
         queryFn: getAllStudents,
+        enabled: user?.role === "admin",
         staleTime: FIVE_MIN,
         retry: 1,
       },
       {
         queryKey: ["weeklyAnalytics"],
         queryFn: getOverallWeeklyAnalytics,
+        enabled: user?.role === "admin",
         staleTime: FIVE_MIN,
         retry: 1,
       },
