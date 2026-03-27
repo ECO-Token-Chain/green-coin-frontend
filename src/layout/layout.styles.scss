@@ -4,10 +4,17 @@ $bg-light: #f8f9fa;
 $sidebar-width: 280px;
 $transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
+// Prevent body scroll (important)
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 // 1. Mobile Styles (Default)
 .content-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background-color: $bg-light;
   position: relative;
 
@@ -85,6 +92,7 @@ $transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     .nav-menu {
       flex: 1;
+      overflow-y: auto; // optional if menu gets long
 
       .menu-label {
         font-size: 0.7rem;
@@ -132,21 +140,26 @@ $transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     flex: 1;
     width: 100%;
 
+    display: flex;            
+    flex-direction: column;  
+    height: 100%;            
+
     .navbar {
       height: 70px;
+      flex-shrink: 0;         
       padding: 0 1rem;
-
-      .page-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
 
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: white;
       border-bottom: 1px solid #eee;
+
+      .page-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
 
       .nav-left {
         display: flex;
@@ -164,7 +177,6 @@ $transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         display: none;
       }
 
-      // Hide search on small mobile
       .nav-actions {
         display: flex;
         align-items: center;
@@ -184,12 +196,15 @@ $transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .main-content {
+      flex: 1;              
+      min-height: 0;        
+      overflow-y: auto;     
       padding: 1.5rem;
     }
   }
 }
 
-// 2. Desktop Styles (min-width: 1024px)
+// 2. Desktop Styles
 @media (min-width: 1024px) {
   .content-container {
 
@@ -199,15 +214,15 @@ $transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       display: none;
     }
 
+    .mobile-close{
+      display: none;
+    }
+
     .sidebar {
       position: sticky;
       left: 0;
       box-shadow: none;
       border-right: 1px solid #eee;
-
-      .mobile-close {
-        display: none;
-      }
     }
 
     .content-wrapper {
