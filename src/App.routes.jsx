@@ -9,6 +9,7 @@ import LeaderBoard from "./features/Admin/Pages/LeaderBoard";
 import BinPages from "./features/Admin/Pages/BinPages";
 import Marketplace from "./features/Admin/Pages/Marketplace";
 import UserDetails from "./features/Admin/Pages/UserDetails";
+import AdminRoute from "./global/utils/AdminRoutes";
 
 export const router = createBrowserRouter([
     {
@@ -19,19 +20,19 @@ export const router = createBrowserRouter([
         children:[
             {
                 index: true,
-                element: <DashboardAdmin />
+                element: <AdminRoute><DashboardAdmin /></AdminRoute>
             },
             {
                 path: "/user-management",
-                element: <UserManagement />
+                element: <AdminRoute><UserManagement /></AdminRoute>
             },
             {
                 path: "/user-management/:id",
-                element: <UserDetails />
+                element: <AdminRoute><UserDetails /></AdminRoute>
             },
             {
                 path: "/bin",
-                element: <BinPages />
+                element: <AdminRoute><BinPages /></AdminRoute>
             },
             {
                 path: "/leaderboard",
@@ -39,11 +40,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/marketplace",
-                element: <Marketplace />
+                element: <AdminRoute><Marketplace /></AdminRoute>
             },
             {
                 path: "/settings",
                 element: <div>Settings</div>
+            },
+            {
+                path: "/users",
+                element: <div>Users Page</div>
             }
         ]
     },
