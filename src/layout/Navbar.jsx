@@ -9,7 +9,7 @@ const Navbar = ({ toggleSidebar }) => {
         <button className="menu-toggle" onClick={toggleSidebar}>
           <Menu size={24} />
         </button>
-        <h2 className="page-title">Admin Home</h2>
+        <h2 className="page-title">{user.role === 'admin' ? 'Admin' : 'User'}</h2>
       </div>
       
       <div className="nav-actions">
